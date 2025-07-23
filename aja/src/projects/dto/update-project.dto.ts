@@ -6,7 +6,10 @@ import { CreateProjectDto } from './create-project.dto';
   IsBoolean,
   IsOptional,
   IsUrl,
+  IsArray
 } from 'class-validator';
+import { Type } from 'class-transformer';
+
 
 export class UpdateProjectDto extends PartialType(CreateProjectDto) {
 
@@ -31,7 +34,9 @@ export class UpdateProjectDto extends PartialType(CreateProjectDto) {
   @IsString()
   ubicacion: string;
 
-  @IsString()
-  file: string;
+  @IsOptional()
+  @IsArray()
+  @Type(() => Object) // o () => Object si son objetos variados
+  archivos?: any[];
 
 }

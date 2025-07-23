@@ -4,7 +4,9 @@ import {
   IsBoolean,
   IsOptional,
   IsUrl,
+  IsArray,
 } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class CreateProjectDto {
   @IsString()
@@ -28,7 +30,9 @@ export class CreateProjectDto {
   @IsString()
   ubicacion: string;
 
-  @IsString()
-  file: string;
+  @IsOptional()
+  @IsArray()
+  @Type(() => Object) // o () => Object si son objetos variados
+  archivos?: any[];
 
 }

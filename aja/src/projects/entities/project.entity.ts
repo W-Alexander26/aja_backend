@@ -29,8 +29,8 @@ export class Proyect {
   @Column()
   link: string;
 
-  @Column()
-  file: string;
+  @Column({ type: 'json', nullable: true }) // o 'jsonb' si usas PostgreSQL
+  archivos: any[];
 
   @Column()
   ubicacion: string;
