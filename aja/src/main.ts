@@ -6,12 +6,18 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Cargar variables de entorno desde ConfigService
+  // Obtener ConfigService
   const configService = app.get(ConfigService);
   const port = configService.get<number>('PORT') || 3000;
-  app.useGlobalPipes(new ValidationPipe());
+  const frontendUrl = configService.get<string>('FRONTEND_URL');
 
-  // Prefijo global para todas las rutas
+  // Habilitar CORS con origen desde .env
+  app.enableCors({
+    origin: frontendUrl,
+    credentials: true,
+  });
+
+  app.useGlobalPipes(new ValidationPipe());
   app.setGlobalPrefix('api');
 
   await app.listen(port);
