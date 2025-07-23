@@ -37,20 +37,17 @@ export class ProjectsService {
   };
 
 
-  async crearProyecto(
-    dto: CreateProjectDto,
-    file?: Express.Multer.File,
-  ): Promise<Proyect> {
-    let imageUrl = "";
-
-    if (file) {
-      imageUrl = await this.uploadImage(file);
-    }
-
+  async crearProyecto(dto: CreateProjectDto): Promise<Proyect> {
     const nuevoProyecto = this.proyectoRepo.create({
       ...dto,
-      file: imageUrl, // actualiza con la URL si hay imagen
     });
     return this.proyectoRepo.save(nuevoProyecto);
   }
+
+
+
 }
+
+
+
+

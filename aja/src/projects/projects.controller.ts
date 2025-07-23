@@ -13,12 +13,17 @@ import { CreateProjectDto } from './dto/create-project.dto';
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
 
+  @Post('archivo')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadFile(@UploadedFile() file: Express.Multer.File) {
+    const result = await this.projectsService.uploadImage(file);
+    return {
+      url: result,
+    };
+  }
+
   @Post()
-  @UseInterceptors(FileInterceptor('file')) // acepta el archivo bajo el campo "file"
-  crearProyecto(
-    @Body() dto: CreateProjectDto,
-    @UploadedFile() file?: Express.Multer.File,
-  ) {
-    return this.projectsService.crearProyecto(dto, file);
+  crearProyecto(@Body() dto: CreateProjectDto) {
+    return this.projectsService.crearProyecto(dto);
   }
 }
