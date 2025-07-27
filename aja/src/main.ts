@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
 
-async function bootstrap() {
+async function hermes() {
   const app = await NestFactory.create(AppModule);
 
   // Obtener ConfigService
@@ -12,6 +12,8 @@ async function bootstrap() {
   const frontendUrl = configService.get<string>('FRONTEND_URL');
 
   // Habilitar CORS con origen desde .env
+  console.log(`Habilitando CORS para: ${frontendUrl}`);
+  
   app.enableCors({
     origin: frontendUrl,
     credentials: true,
@@ -22,5 +24,6 @@ async function bootstrap() {
 
   await app.listen(port);
   console.log(`🚀 App corriendo en http://localhost:${port}/api`);
+  await app.listen(process.env.PORT ?? 2323);
 }
-bootstrap();
+hermes();
