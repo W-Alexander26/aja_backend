@@ -1,9 +1,10 @@
+// main.ts
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
 
-async function hermes() {
+async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // Obtener ConfigService
@@ -23,4 +24,4 @@ async function hermes() {
   console.log(`🚀 App corriendo en http://localhost:${port}/api`);
   await app.listen(process.env.PORT ?? 2323);
 }
-hermes();
+bootstrap();
