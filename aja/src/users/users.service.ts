@@ -17,15 +17,7 @@ export class UserService {
   ) { }
 
   async findAll(dto: ListUsersDto) {
-    let where: FindOptionsWhere<User> = {};
-
-    if (dto.activos === true) {
-      where.activos = true;
-    }
-
-    return this.userRepo.find({
-      where
-    });
+    return this.userRepo.find();
   }
 
 
@@ -57,6 +49,7 @@ export class UserService {
 
     if (dto.username) user.username = dto.username;
     if (dto.email) user.email = dto.email;
+    if (dto.activos !== undefined) user.activos = dto.activos;
     await this.userRepo.save(user);
 
     if (dto.password) {
@@ -128,7 +121,9 @@ export class UserService {
       where: { user: { id: user.id } },
       relations: ['user'],
     });
-
+    if (user.activos == false) {
+      throw new HttpException('Usuario inactivo', HttpStatus.FORBIDDEN);
+    }
     if (!userPassword?.password) {
       throw new HttpException('Contraseña no encontrada', HttpStatus.NOT_FOUND);
     }

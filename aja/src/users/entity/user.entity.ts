@@ -49,6 +49,10 @@ export class UpdateUserDto {
   @IsOptional()
   @MinLength(6, { message: 'La contraseña debe tener al menos 6 caracteres' })
   password?: string;
+
+  @IsOptional()
+  @IsBoolean({ message: 'El campo activos debe ser un booleano' })
+  activos?: boolean;
 }
 
 export class DeleteUserDto {
