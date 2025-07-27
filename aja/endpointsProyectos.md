@@ -1,4 +1,4 @@
-http://localhost:2323/proyectos/archivo - POST
+http://localhost:2323/api/proyectos/archivo - POST
 
 El archivo se sube con postman.
 1-Se tiene que pasar el archivo por medio del ' body -> form-data '
@@ -9,7 +9,7 @@ El archivo se sube con postman.
     |       |                      |
 
 
-http://localhost:2323/proyectos - POST
+http://localhost:2323/api/proyectos - POST
 
 Json:
 

@@ -4,6 +4,7 @@ import {
   Body,
   UploadedFile,
   UseInterceptors,
+  Get,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ProjectsService } from './projects.service';
@@ -25,5 +26,11 @@ export class ProjectsController {
   @Post()
   crearProyecto(@Body() dto: CreateProjectDto) {
     return this.projectsService.crearProyecto(dto);
+  }
+
+  
+  @Get()
+  async obtenerUsuarios(): Promise<CreateProjectDto[]> {
+    return this.projectsService.obtenerTodos();
   }
 }

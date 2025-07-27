@@ -1,8 +1,16 @@
+// main.ts
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
-async function hermes() {
+async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.PORT ?? 2323);
+
+  app.enableCors({
+    origin: '*', // o una URL específica como 'http://localhost:5173'
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+  });
+
+  await app.listen(2323);
 }
-hermes();
+bootstrap();
