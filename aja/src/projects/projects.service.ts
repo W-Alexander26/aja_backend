@@ -44,6 +44,10 @@ export class ProjectsService {
     return this.proyectoRepo.save(nuevoProyecto);
   }
 
+  async obtenerTodos(): Promise<Proyect[]> {
+    return this.proyectoRepo.find();
+  }
+
 
 
 }
