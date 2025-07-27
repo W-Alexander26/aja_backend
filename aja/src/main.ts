@@ -12,8 +12,6 @@ async function hermes() {
   const frontendUrl = configService.get<string>('FRONTEND_URL');
 
   // Habilitar CORS con origen desde .env
-  console.log(`Habilitando CORS para: ${frontendUrl}`);
-  
   app.enableCors({
     origin: frontendUrl,
     credentials: true,
@@ -22,7 +20,6 @@ async function hermes() {
   app.useGlobalPipes(new ValidationPipe());
   app.setGlobalPrefix('api');
 
-  await app.listen(port);
   console.log(`🚀 App corriendo en http://localhost:${port}/api`);
   await app.listen(process.env.PORT ?? 2323);
 }
