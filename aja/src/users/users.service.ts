@@ -145,6 +145,4 @@ export class UserService {
       expiresIn: '24h',
     });
   }
-
-
 }
