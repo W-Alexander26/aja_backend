@@ -21,6 +21,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.setGlobalPrefix('api');
 
+  console.log(process.env.prod)
   console.log(`🚀 App corriendo en http://localhost:${port}/api`);
   await app.listen(process.env.PORT ?? 2323);
 }
