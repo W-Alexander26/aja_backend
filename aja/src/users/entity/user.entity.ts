@@ -1,5 +1,5 @@
-import { IsEmail, IsNotEmpty, IsOptional, MinLength, IsInt, IsBoolean } from 'class-validator';
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
+import { IsEmail, IsNotEmpty, IsOptional, MinLength, IsInt, IsBoolean, IsString } from 'class-validator';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, Index } from 'typeorm';
 import { Password } from './password.entity';
 
 @Entity('users')
@@ -18,6 +18,45 @@ export class User {
 
   @OneToOne(() => Password, (password) => password.user)
   password: Password;
+
+  @Column({
+    name: 'display_order',
+    type: 'int',
+    nullable: true,
+    unique: true,
+  })
+  displayOrder: number | null;
+
+  @Column('simple-array', { nullable: true })
+  skills: string[];
+
+  @Column({ default: false })
+  mostrar: boolean;
+
+  @Column({
+    type: 'varchar',
+    length: 4,
+    name: 'siglas',
+    default: 'X',
+  })
+  siglas: string;
+
+  @Column({
+    type: 'varchar',
+    length: 60,
+    name: 'puestos',
+    nullable: true,
+  })
+  puestos?: string;
+
+  @Column({
+    type: 'varchar',
+    length: 60,
+    name: 'img',
+    nullable: true,
+  })
+  img?: string;
+
 }
 
 
@@ -31,6 +70,25 @@ export class CreateUserDto {
   @IsNotEmpty({ message: 'La contraseña no puede estar vacía' })
   @MinLength(6, { message: 'La contraseña debe tener al menos 6 caracteres' })
   password: string;
+
+  @IsOptional()
+  skills?: string[];          // ej. ['aws','react']
+
+  @IsOptional()
+  @IsBoolean()
+  mostrar?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  siglas: string;
+
+  @IsOptional()
+  @IsBoolean()
+  puestos: string;
+
+  @IsOptional()
+  @IsString()
+  img: string;
 }
 
 export class UpdateUserDto {
@@ -53,6 +111,29 @@ export class UpdateUserDto {
   @IsOptional()
   @IsBoolean({ message: 'El campo activos debe ser un booleano' })
   activos?: boolean;
+
+  @IsOptional()
+  @IsInt()
+  displayOrder?: number;
+
+  @IsOptional()
+  skills?: string[];
+
+  @IsOptional()
+  @IsBoolean()
+  mostrar?: boolean;
+
+  @IsOptional()
+  @IsString()
+  siglas: string;
+
+  @IsOptional()
+  @IsString()
+  puestos: string;
+
+  @IsOptional()
+  @IsString()
+  img: string;
 }
 
 export class DeleteUserDto {
